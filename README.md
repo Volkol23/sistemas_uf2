@@ -1,2 +1,5 @@
-# sistemas_uf2
-Segunda UNidad Formativa Sistemas Operativos
+# Sistemas Uf2: Servicios de red
+Segunda Unidad Formativa Sistemas Operativos donde veremos diversos sistemas de red y crearemos nuestro propio protocolo
+
+## Archivos
+* servidor.sh: el servidor de nuestro protocolo
