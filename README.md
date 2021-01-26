@@ -3,3 +3,4 @@ Segunda Unidad Formativa Sistemas Operativos donde veremos diversos sistemas de 
 
 ## Archivos
 * servidor.sh: el servidor de nuestro protocolo
+* cliente.sh: el cliente de nuestro protocolo
