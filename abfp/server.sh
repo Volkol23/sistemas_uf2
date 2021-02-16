@@ -75,11 +75,19 @@ echo "OK_FILE_NAME" | nc -q 1 $IP $PORT
 
 echo "(13)Listening $PORT"
 
-#nc -lp $PORT > archivo_entrada.vaca
+nc -lp $PORT > archivo_entrada.vaca
 
+MYMD5=`md5 archivo_entrada_vaca`
 
-echo "Todo correcto"
-echo "OK_DATA" | nc -q 1 $IP $PORT
+MD5=`nc -lp $PORT`
+SENDMS5=`echo $MD5 | cut -d " " -f 1`
+
+if [$MYMD5 != $SENDMD5 ]; then
+	echo "KO_DATA" | nc -q 1 $IP $PORT
+else
+	echo "Todo correcto"
+	echo "OK_DATA" | nc -q 1 $IP $PORT
+fi
 
 sleep 1
 

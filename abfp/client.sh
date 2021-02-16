@@ -71,4 +71,10 @@ echo "(15)Listening $PORT"
 
 sleep 1
 
+MD5=`md5sum $FILE_NAME | cut -d " " -f 1`
+
+echo "$MD5" | nc -q 1 $IP_SERVER $PORT
+
+sleep 1
+
 exit 0
