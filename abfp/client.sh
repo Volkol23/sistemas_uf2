@@ -12,6 +12,7 @@ echo "Iniciando cliente del protocolo ABFP"
 
 echo "(2)Sending Headers"
 
+sleep 1
 echo "ABFP $IP_CLIENT" | nc -q 1 $IP_SERVER $PORT
 
 echo "(3)Listening $PORT"
@@ -29,6 +30,7 @@ fi
 
 echo "(6)Enviando Handshake"
 
+sleep 1
 echo "THIS_IS_MY_CLASSROOM" | nc -q 1 $IP_SERVER $PORT
 
 echo "(7)Listening $PORT"
@@ -46,7 +48,11 @@ fi
 
 echo "(10)Enviar nombre del archivo"
 
-echo "FILE_NAME $FILE_NAME" | nc -q 1 $IP_SERVER $PORT
+sleep 1
+
+FILE_MD5=`echo $FILE_NAME | md5sum | cut -d " " -f 1`
+
+echo "FILE_NAME $FILE_NAME $FILE_MD5" | nc -q 1 $IP_SERVER $PORT
 
 echo "(11)Listening $PORT"
 
@@ -61,20 +67,28 @@ if [ "$RESPONSE" != "OK_FILE_NAME" ]; then
 	exit 3
 fi
 
-echo "(14)Enviar File Data"
+echo "(14)Enviar File Data + File MD5"
 
-DATA=`cat $FILE_NAME`
+FILE_DATA=`cat $FILE_NAME`
 
-echo "$DATA" | nc -q 1 $IP_SERVER $PORT
+sleep 1
+
+echo "$FILE_DATA" | nc -q 1 $IP_SERVER $PORT
+
+FILE_MD5=`md5sum $FILE_NAME | cut -d " " -f 1`
+
+sleep 1
+
+echo "$FILE_MD5" | nc -q 1 $IP_SERVER $PORT
 
 echo "(15)Listening $PORT"
 
-sleep 1
-
-MD5=`md5sum $FILE_NAME | cut -d " " -f 1`
-
-echo "$MD5" | nc -q 1 $IP_SERVER $PORT
+RESPONSE=`nc -lp $PORT`
 
 sleep 1
+if [ "$RESPONSE" != "OK_DATA" ]; then
+	echo "ERROR 4: El archivo no se ha enviado correctamente"
+	exit 4
+fi
 
 exit 0
