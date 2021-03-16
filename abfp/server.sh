@@ -98,6 +98,7 @@ if [ "$MY_MD5" != "$SEND_MD5" ]; then
 	echo "KO_DATA" | nc -q 1 $IP $PORT
 else
 	echo "Todo correcto"
+	echo "Enviado el Archivo: $FILE_NAME correctamente" | mail -s "Protocolo ABFP" alejandro_test@mailinator.com
 	sleep 1
 	echo "OK_DATA" | nc -q 1 $IP $PORT
 fi

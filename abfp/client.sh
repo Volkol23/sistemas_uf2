@@ -2,7 +2,11 @@
 
 PORT="2021"
 IP_CLIENT="127.0.0.1"
-IP_SERVER="127.0.0.1"
+if [ "$1" == "" ]; then
+	IP_SERVER="127.0.0.1"
+else
+	IP_SERVER="$1"
+fi
 
 FILE_NAME="archivo_salida.vaca"
 
@@ -10,7 +14,7 @@ clear
 
 echo "Iniciando cliente del protocolo ABFP"
 
-echo "(2)Sending Headers"
+echo "(2)Sending Headers to $IP_SERVER"
 
 sleep 1
 echo "ABFP $IP_CLIENT" | nc -q 1 $IP_SERVER $PORT
