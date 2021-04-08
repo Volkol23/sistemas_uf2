@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PORT="2021"
+INPUT_PATH="entrada_cliente/"
 IP_CLIENT="127.0.0.1"
 if [ "$1" == "" ]; then
 	IP_SERVER="127.0.0.1"
